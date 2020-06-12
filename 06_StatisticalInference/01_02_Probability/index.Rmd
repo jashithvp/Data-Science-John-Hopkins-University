@@ -13,7 +13,9 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
+```{r global_options}
+knitr::opts_chunk$set(fig.path='Figs/')
+```
 ## Notation
 
 - The **sample space**, $\Omega$, is the collection of possible outcomes of an experiment

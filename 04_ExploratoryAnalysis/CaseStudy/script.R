@@ -55,6 +55,8 @@ hist(dates, "month")  ## Check what's going on in months 1--6
 ## Find a monitor for New York State that exists in both datasets
 site0 <- unique(subset(pm0, State.Code == 36, c(County.Code, Site.ID)))
 site1 <- unique(subset(pm1, State.Code == 36, c(County.Code, Site.ID)))
+dim(site0)
+dim(site1)
 site0 <- paste(site0[,1], site0[,2], sep = ".")
 site1 <- paste(site1[,1], site1[,2], sep = ".")
 str(site0)
@@ -65,10 +67,10 @@ print(both)
 ## Find how many observations available at each monitor
 pm0$county.site <- with(pm0, paste(County.Code, Site.ID, sep = "."))
 pm1$county.site <- with(pm1, paste(County.Code, Site.ID, sep = "."))
-cnt0 <- subset(pm0, State.Code == 36 & county.site %in% both)
-cnt1 <- subset(pm1, State.Code == 36 & county.site %in% both)
-sapply(split(cnt0, cnt0$county.site), nrow)
-sapply(split(cnt1, cnt1$county.site), nrow)
+cnt0 <- subset(pm0, State.Code == 36 & County.Site %in% both)
+cnt1 <- subset(pm1, State.Code == 36 & County.Site %in% both)
+sapply(split(cnt0, cnt0$County.Site), nrow)
+sapply(split(cnt1, cnt1$County.Site), nrow)
 
 ## Choose county 63 and side ID 2008
 pm1sub <- subset(pm1, State.Code == 36 & County.Code == 63 & Site.ID == 2008)
@@ -108,7 +110,7 @@ abline(h = median(x1sub, na.rm = T))
 
 ## Show state-wide means and make a plot showing trend
 head(pm0)
-mn0 <- with(pm0, tapply(Sample.Value, State.Code, mean, na.rm = T))
+
 str(mn0)
 summary(mn0)
 mn1 <- with(pm1, tapply(Sample.Value, State.Code, mean, na.rm = T))
